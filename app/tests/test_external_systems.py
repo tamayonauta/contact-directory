@@ -76,13 +76,13 @@ class IdentificationSystemTestCase(unittest.TestCase):
         person = {"id_number": "9000000"}
         person_data = IdentificationSystem._get_person_data(person)
 
-        self.assertDictEqual(person_data, {})
+        self.assertIsNone(person_data)
 
     def test_get_invalid_person_data(self):
         person = {}
         person_data = IdentificationSystem._get_person_data(person)
 
-        self.assertDictEqual(person_data, {})
+        self.assertIsNone(person_data)
 
 
 if __name__ == "__main__":

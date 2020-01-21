@@ -70,6 +70,6 @@ class Directory:
             raise Exception("No se pudo obtener los datos personales")
 
         body = response.json()
-        person_data = body['person_data']
+        person_data = body
 
         return person_data
