@@ -1,6 +1,6 @@
 class PoliceSystem:
     # Last digits that has criminal record
-    _CRIMINAL_RECORD_CHOICES = [1, 5, 9]
+    _CRIMINAL_RECORD_CHOICES = (1, 5, 9)
 
     @classmethod
     def get_criminal_record(cls, person):
