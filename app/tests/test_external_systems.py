@@ -46,7 +46,7 @@ class IdentificationSystemTestCase(unittest.TestCase):
 
     def test_get_person_data(self):
         person = {"id_number": "1000000"}
-        person_data = IdentificationSystem.get_person_data(person)
+        person_data = IdentificationSystem._get_person_data(person)
 
         self.assertGreaterEqual(len(person_data), 1)
 
@@ -57,7 +57,7 @@ class IdentificationSystemTestCase(unittest.TestCase):
             "id_exp_date": "2001-01-11",
             "full_name": "John Doe"
         }
-        person_data = IdentificationSystem.get_person_data(person)
+        person_data = IdentificationSystem._get_person_data(person)
 
         self.assertDictEqual(person_data, person)
 
@@ -68,19 +68,19 @@ class IdentificationSystemTestCase(unittest.TestCase):
             "id_exp_date": "2001-01-11",
             "full_name": "Andrew Doe"
         }
-        person_data = IdentificationSystem.get_person_data(person)
+        person_data = IdentificationSystem._get_person_data(person)
 
         self.assertCountEqual(person_data, person)
 
     def test_get_person_data_not_exists(self):
         person = {"id_number": "9000000"}
-        person_data = IdentificationSystem.get_person_data(person)
+        person_data = IdentificationSystem._get_person_data(person)
 
         self.assertDictEqual(person_data, {})
 
     def test_get_invalid_person_data(self):
         person = {}
-        person_data = IdentificationSystem.get_person_data(person)
+        person_data = IdentificationSystem._get_person_data(person)
 
         self.assertDictEqual(person_data, {})
 
