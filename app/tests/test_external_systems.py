@@ -19,25 +19,25 @@ class PoliceSystemTestCase(unittest.TestCase):
 
     def test_get_positive_criminal_record(self):
         person = {"id_number": "123456789"}
-        criminal_record = PoliceSystem.get_criminal_record(person)
+        criminal_record = PoliceSystem._get_criminal_record(person)
 
         self.assertTrue(criminal_record)
 
     def test_get_negative_criminal_record(self):
         person = {"id_number": "123456780"}
-        criminal_record = PoliceSystem.get_criminal_record(person)
+        criminal_record = PoliceSystem._get_criminal_record(person)
 
         self.assertFalse(criminal_record)
 
     def test_get_criminal_record_without_param(self):
         person = {}
-        criminal_record = PoliceSystem.get_criminal_record(person)
+        criminal_record = PoliceSystem._get_criminal_record(person)
 
         self.assertIsNone(criminal_record)
 
     def test_get_criminal_record_with_invalid_param(self):
         person = {"id_number": ""}
-        criminal_record = PoliceSystem.get_criminal_record(person)
+        criminal_record = PoliceSystem._get_criminal_record(person)
 
         self.assertIsNone(criminal_record)
 

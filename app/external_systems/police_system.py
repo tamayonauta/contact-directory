@@ -4,6 +4,11 @@ class PoliceSystem:
 
     @classmethod
     def get_criminal_record(cls, person):
+        criminal_record = cls._get_criminal_record(person)
+        return {"criminal_record": criminal_record}
+
+    @classmethod
+    def _get_criminal_record(cls, person):
         if not len(person) or "id_number" not in person:
             return None
 
