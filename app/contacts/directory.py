@@ -1,4 +1,5 @@
 from .contact import Contact
+from .services import RatingSystemService
 
 
 class Directory:
@@ -34,3 +35,15 @@ class Directory:
 
     def _save_temp_contact(self, temp_contact):
         self._temp_contacts.append(temp_contact)
+
+    def _get_score(self, person):
+        rating_system_service = RatingSystemService()
+        response = rating_system_service.get_score(person=person)
+
+        if response is None:
+            raise Exception("No se pudo obtener el puntaje")
+
+        body = response.json()
+        score = body['score']
+
+        return score

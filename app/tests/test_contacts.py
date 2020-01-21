@@ -2,6 +2,7 @@ import unittest
 from datetime import date
 
 from contacts.contact import Contact
+from contacts.directory import Directory
 
 
 class ContactTestCase(unittest.TestCase):
@@ -17,6 +18,16 @@ class ContactTestCase(unittest.TestCase):
         )
 
         self.assertIsInstance(new_contact, Contact)
+
+
+class DirectoryTestCase(unittest.TestCase):
+
+    def test_get_score(self):
+        directory = Directory()
+        person = {}
+        score = directory._get_score(person=person)
+
+        self.assertIsInstance(score, int)
 
 
 if __name__ == "__main__":
