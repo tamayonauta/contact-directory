@@ -28,7 +28,9 @@ class Directory:
             email=email,
             phone_number=phone_number
         )
-        self._add_temp_contact(temp_contact)
+        self._save_temp_contact(temp_contact)
 
-    def _add_temp_contact(self, temp_contact):
+        return True
+
+    def _save_temp_contact(self, temp_contact):
         self._temp_contacts.append(temp_contact)
