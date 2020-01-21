@@ -1,9 +1,5 @@
 class Contact:
-    ID_TYPES = {
-        "cc": "Cédula",
-        "ce": "Cédula de extranjeria",
-        "pp": "Pasaporte"
-    }
+    ID_TYPES = ("CC", "CE", "PP")
 
     def __init__(
         self,

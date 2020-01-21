@@ -8,9 +8,9 @@ class ContactTestCase(unittest.TestCase):
 
     def test_create_contact(self):
         new_contact = Contact(
-            id_type="Cédula",
+            id_type="CC",
             id_number="1000000",
-            id_exp_date=date(2000, 3, 31),
+            id_exp_date=date(2001, 1, 11),
             full_name="John Doe",
             email="john@mail.com",
             phone_number="1234567890"

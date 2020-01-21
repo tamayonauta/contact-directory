@@ -51,11 +51,9 @@ def get_id_type():
         "[ce] Cédula de extranjeria\n" +
         "[pp] Pasaporte\n"
     ))
+    index = Contact.ID_TYPES.index(id_type.upper())
 
-    if id_type not in Contact.ID_TYPES:
-        raise ValueError("Opción incorrecta")
-
-    return Contact.ID_TYPES[id_type]
+    return Contact.ID_TYPES[index]
 
 
 def get_id_number():
