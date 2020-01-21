@@ -15,5 +15,10 @@ class RatingSystem:
 
     @classmethod
     def get_score(cls, person):
+        score = cls._get_score(person)
+        return {"score": score}
+
+    @classmethod
+    def _get_score(cls, person):
         score = random.randint(cls._MIN_SCORE, cls._MAX_SCORE)
         return score

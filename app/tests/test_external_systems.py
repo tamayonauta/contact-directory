@@ -8,7 +8,7 @@ from external_systems.rating_system import RatingSystem
 class RatingSystemTestCase(unittest.TestCase):
 
     def test_get_score(self):
-        score = RatingSystem.get_score(person="Person")
+        score = RatingSystem._get_score(person="Person")
         min_score = RatingSystem.get_min_score()
         max_score = RatingSystem.get_max_score()
 
