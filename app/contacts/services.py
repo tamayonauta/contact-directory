@@ -106,3 +106,21 @@ class IdentificationSystemService:
             return response
         else:
             return None
+
+
+# Utils
+
+def serialize_response(response, key=None):
+    """
+    Get body response formatted
+    """
+
+    if response is None:
+        raise ValueError("Could not get content")
+
+    body = response.json()
+
+    if key and key in body:
+        return body[key]
+
+    return body
