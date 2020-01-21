@@ -1,4 +1,5 @@
 from .contact import Contact
+from .services import IdentificationSystemService
 from .services import PoliceSystemService
 from .services import RatingSystemService
 
@@ -60,3 +61,15 @@ class Directory:
         criminal_record = body['criminal_record']
 
         return criminal_record
+
+    def _get_person_data(self, person):
+        identification_system_service = IdentificationSystemService()
+        response = identification_system_service.get_person_data(person=person)
+
+        if response is None:
+            raise Exception("No se pudo obtener los datos personales")
+
+        body = response.json()
+        person_data = body['person_data']
+
+        return person_data

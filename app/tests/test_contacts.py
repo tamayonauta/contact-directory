@@ -36,6 +36,13 @@ class DirectoryTestCase(unittest.TestCase):
 
         self.assertIsInstance(criminal_record, bool)
 
+    def test_get_person_data(self):
+        directory = Directory()
+        person = {"id_number": "1000000"}
+        person_data = directory._get_person_data(person=person)
+
+        self.assertIsInstance(person_data, dict)
+
 
 if __name__ == "__main__":
     unittest.main()
