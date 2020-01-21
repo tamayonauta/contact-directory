@@ -1,4 +1,5 @@
 from .contact import Contact
+from .services import PoliceSystemService
 from .services import RatingSystemService
 
 
@@ -47,3 +48,15 @@ class Directory:
         score = body['score']
 
         return score
+
+    def _get_criminal_record(self, person):
+        police_system_service = PoliceSystemService()
+        response = police_system_service.get_criminal_record(person=person)
+
+        if response is None:
+            raise Exception("No se pudo obtener los antecedentes")
+
+        body = response.json()
+        criminal_record = body['criminal_record']
+
+        return criminal_record
