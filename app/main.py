@@ -3,6 +3,7 @@ from datetime import datetime
 
 from contacts.contact import Person
 from contacts.directory import Directory
+from messages import MSG_TO_ADD_CONTACT
 
 
 def run():
@@ -18,6 +19,8 @@ def run():
         ))
 
         if command == "a":
+            print(MSG_TO_ADD_CONTACT)
+
             try:
                 id_type = get_id_type()
                 id_number = get_id_number()
