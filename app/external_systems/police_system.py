@@ -1,6 +1,4 @@
 class PoliceSystem:
-    # Last digits that has criminal record
-    _CRIMINAL_RECORD_CHOICES = (1, 5, 9)
 
     @classmethod
     def get_criminal_record(cls, data):
@@ -9,11 +7,15 @@ class PoliceSystem:
 
     @classmethod
     def _get_criminal_record(cls, data):
+        """
+        All odd numbers has criminal record
+        """
+
         if not len(data) or "id_number" not in data:
             return None
 
         try:
-            if int(data['id_number'][-1]) in cls._CRIMINAL_RECORD_CHOICES:
+            if int(data['id_number'][-1]) % 2 != 0:
                 return True
 
             return False

@@ -89,8 +89,8 @@ class Directory:
         # Validate criminal record
         if not self._is_criminal_record_valid(criminal_record):
             raise PersonValidationError(
-                "El prospecto tiene antecedentes de acuerdo al Sistema de la "
-                "Policía"
+                "El prospecto tiene antecedentes judiciales de acuerdo al "
+                "Sistema de la Policía"
             )
 
         # Get score
