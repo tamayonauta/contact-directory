@@ -5,6 +5,7 @@ from .helpers import get_score
 
 
 class Directory:
+    _MIN_SCORE_ACCEPTED = 60
 
     def __init__(self):
         self._persons = []
@@ -35,19 +36,19 @@ class Directory:
 
         # Get personal data
         personal_data = get_personal_data(person)
-        # TODO: Validate personal data
-        if not self._is_personal_data_valid(personal_data):
+        # Validate personal data
+        if not self._is_personal_data_valid(person, personal_data):
             return False
 
         # Get criminal record
         criminal_record = get_criminal_record(person)
-        # TODO: Validate criminal record
+        # Validate criminal record
         if not self._is_criminal_record_valid(criminal_record):
             return False
 
         # Get score
         score = get_score(person)
-        # TODO: Validate score
+        # Validate score
         if not self._is_score_valid(score):
             return False
 
@@ -59,14 +60,23 @@ class Directory:
     def _save_person(self, person):
         self._persons.append(person)
 
-    def _is_personal_data_valid(self, personal_data):
+    def _is_personal_data_valid(self, person, personal_data):
+        if (
+            personal_data is None or
+            person.id_type != personal_data['id_type'] or
+            person.id_number != personal_data['id_number'] or
+            person.id_exp_date != personal_data['id_exp_date'] or
+            person.full_name != personal_data['full_name']
+        ):
+            return False
+
         return True
 
     def _is_criminal_record_valid(self, criminal_record):
-        return True
+        return True if not criminal_record else False
 
     def _is_score_valid(self, score):
-        return True
+        return True if score >= self._MIN_SCORE_ACCEPTED else False
 
     def _save_contact(self, person):
         self._contacts.append(person)
