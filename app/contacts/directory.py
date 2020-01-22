@@ -1,7 +1,7 @@
 from .contact import Contact
-from .services import IdentificationSystemService
-from .services import PoliceSystemService
-from .services import RatingSystemService
+from .helpers import get_criminal_record
+from .helpers import get_personal_data
+from .helpers import get_score
 
 
 class Directory:
@@ -33,34 +33,40 @@ class Directory:
         )
         self._save_temp_contact(temp_contact)
 
+        # Get personal data
+        personal_data = get_personal_data(temp_contact)
+        # TODO: Validate personal data
+        if not self._is_personal_data_valid(personal_data):
+            return False
+
+        # Get criminal record
+        criminal_record = get_criminal_record(temp_contact)
+        # TODO: Validate criminal record
+        if not self._is_criminal_record_valid(criminal_record):
+            return False
+
+        # Get score
+        score = get_score(temp_contact)
+        # TODO: Validate score
+        if not self._is_score_valid(score):
+            return False
+
+        # TODO: Save contact into directory
+        self._save_contact(temp_contact)
+
         return True
 
     def _save_temp_contact(self, temp_contact):
         self._temp_contacts.append(temp_contact)
 
-    def _get_score(self, person):
-        rating_system_service = RatingSystemService()
-        response = rating_system_service.get_score(person=person)
-        score = rating_system_service._serialize_score(response)
+    def _is_personal_data_valid(self, personal_data):
+        return True
 
-        return score
+    def _is_criminal_record_valid(self, criminal_record):
+        return True
 
-    def _get_criminal_record(self, person):
-        police_system_service = PoliceSystemService()
-        response = police_system_service.get_criminal_record(person=person)
-        criminal_record = police_system_service._serialize_criminal_record(
-            response
-        )
+    def _is_score_valid(self, score):
+        return True
 
-        return criminal_record
-
-    def _get_personal_data(self, person):
-        identification_system_service = IdentificationSystemService()
-        response = identification_system_service.get_personal_data(
-            person=person
-        )
-        personal_data = identification_system_service._serialize_personal_data(
-            response
-        )
-
-        return personal_data
+    def _save_contact(self, temp_contact):
+        self._contacts.append(temp_contact)
