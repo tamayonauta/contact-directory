@@ -1,4 +1,4 @@
-class Contact:
+class Person:
     ID_TYPES = ("CC", "CE", "PP")
 
     def __init__(
@@ -40,3 +40,29 @@ class Contact:
     @property
     def phone_number(self):
         return self._phone_number
+
+
+class Contact(Person):
+
+    def __init__(
+        self,
+        id_type,
+        id_number,
+        id_exp_date,
+        full_name,
+        email,
+        phone_number
+    ):
+        super().__init__(
+            id_type,
+            id_number,
+            id_exp_date,
+            full_name,
+            email,
+            phone_number
+        )
+        self._is_accepted = True
+
+    @property
+    def is_accepted(self):
+        return self._is_accepted
