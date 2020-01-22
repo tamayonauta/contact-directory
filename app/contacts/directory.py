@@ -95,7 +95,7 @@ class Directory:
             person.id_type != personal_data['id_type'] or
             person.id_number != personal_data['id_number'] or
             person.id_exp_date != personal_data['id_exp_date'] or
-            person.full_name != personal_data['full_name']
+            person.full_name.lower() != personal_data['full_name'].lower()
         ):
             return False
 
