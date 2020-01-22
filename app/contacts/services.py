@@ -1,5 +1,6 @@
-import requests
 from unittest.mock import patch
+
+import requests
 
 from external_systems.identification_system import IdentificationSystem
 from external_systems.police_system import PoliceSystem
@@ -7,9 +8,10 @@ from external_systems.rating_system import RatingSystem
 
 
 class RatingSystemService:
+    _GET_SCORE_URL = "https://rating-system.dev/score/"
 
     def __init__(self):
-        self._URL = "https://rating-system.domain.dev"
+        pass
 
     def get_score(self, person):
         """
@@ -32,18 +34,19 @@ class RatingSystemService:
 
     def _get_score(self, person):
         data = {"person": person}
-        response = requests.post(url=self._URL, data=data)
+        response = send_post_request(self._GET_SCORE_URL, data)
 
-        if response.ok:
-            return response
-        else:
-            return None
+        return response
+
+    def _serialize_score(self, response):
+        return serialize_response(response, key="score")
 
 
 class PoliceSystemService:
+    _GET_CRIMINAL_RECORD_URL = "https://police-system.dev/criminal-record/"
 
     def __init__(self):
-        self._URL = "https://police-system.domain.dev"
+        pass
 
     def get_criminal_record(self, person):
         """
@@ -66,18 +69,19 @@ class PoliceSystemService:
 
     def _get_criminal_record(self, person):
         data = {"person": person}
-        response = requests.post(url=self._URL, data=data)
+        response = send_post_request(self._GET_CRIMINAL_RECORD_URL, data)
 
-        if response.ok:
-            return response
-        else:
-            return None
+        return response
+
+    def _serialize_criminal_record(self, response):
+        return serialize_response(response, key="criminal_record")
 
 
 class IdentificationSystemService:
+    _GET_PERSON_DATA_URL = "https://identification-system.dev/person-data/"
 
     def __init__(self):
-        self._URL = "https://identification-system.domain.dev"
+        pass
 
     def get_person_data(self, person):
         """
@@ -100,15 +104,28 @@ class IdentificationSystemService:
 
     def _get_person_data(self, person):
         data = {"person": person}
-        response = requests.post(url=self._URL, data=data)
+        response = send_post_request(self._GET_PERSON_DATA_URL, data)
 
-        if response.ok:
-            return response
-        else:
-            return None
+        return response
+
+    def _serialize_person_data(self, response):
+        return serialize_response(response)
 
 
 # Utils
+
+def send_post_request(url, data):
+    """
+    Send POST request
+    """
+
+    response = requests.post(url=url, data=data)
+
+    if response.ok:
+        return response
+    else:
+        return None
+
 
 def serialize_response(response, key=None):
     """

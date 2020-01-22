@@ -1,7 +1,6 @@
 from .contact import Contact
 from .services import IdentificationSystemService
 from .services import PoliceSystemService
-from .services import serialize_response
 from .services import RatingSystemService
 
 
@@ -42,20 +41,24 @@ class Directory:
     def _get_score(self, person):
         rating_system_service = RatingSystemService()
         response = rating_system_service.get_score(person=person)
-        score = serialize_response(response, key="score")
+        score = rating_system_service._serialize_score(response)
 
         return score
 
     def _get_criminal_record(self, person):
         police_system_service = PoliceSystemService()
         response = police_system_service.get_criminal_record(person=person)
-        criminal_record = serialize_response(response, key="criminal_record")
+        criminal_record = police_system_service._serialize_criminal_record(
+            response
+        )
 
         return criminal_record
 
     def _get_person_data(self, person):
         identification_system_service = IdentificationSystemService()
         response = identification_system_service.get_person_data(person=person)
-        person_data = serialize_response(response)
+        person_data = identification_system_service._serialize_person_data(
+            response
+        )
 
         return person_data
