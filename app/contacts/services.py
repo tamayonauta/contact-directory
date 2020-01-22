@@ -1,3 +1,4 @@
+import time
 from unittest.mock import patch
 
 import requests
@@ -30,6 +31,9 @@ class RatingSystemService:
             # Configure the mock to return a response with status code 200
             mock_post.return_value.status_code = 200
             mock_post.return_value.json.return_value = score
+
+            # Simulate request latency
+            simulate_request_latency()
 
             # Call the function, which will send a request to the server
             response = self._get_score(data)
@@ -65,6 +69,9 @@ class PoliceSystemService:
             mock_post.return_value.status_code = 200
             mock_post.return_value.json.return_value = criminal_record
 
+            # Simulate request latency
+            simulate_request_latency()
+
             # Call the function, which will send a request to the server
             response = self._get_criminal_record(data)
 
@@ -99,6 +106,9 @@ class IdentificationSystemService:
             mock_post.return_value.status_code = 200
             mock_post.return_value.json.return_value = personal_data
 
+            # Simulate request latency
+            simulate_request_latency()
+
             # Call the function, which will send a request to the server
             response = self._get_personal_data(data)
 
@@ -110,6 +120,15 @@ class IdentificationSystemService:
 
 
 # Utils
+
+def simulate_request_latency():
+    """
+    Simulate request latency
+    """
+
+    SECONDS = 2
+    time.sleep(SECONDS)
+
 
 def send_post_request(url, data):
     """
