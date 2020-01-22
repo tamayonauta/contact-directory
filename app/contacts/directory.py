@@ -49,6 +49,11 @@ class Directory:
             email=email,
             phone_number=phone_number
         )
+
+        # Validate if person already exists
+        if self._is_person_exists(person):
+            return False
+
         self._save_person(person)
 
         # Get personal data
@@ -73,6 +78,13 @@ class Directory:
         self._save_contact(person)
 
         return True
+
+    def _is_person_exists(self, new_person):
+        for person in self._persons:
+            if person.id_number == new_person.id_number:
+                return True
+
+        return False
 
     def _save_person(self, person):
         self._persons.append(person)
