@@ -30,6 +30,9 @@ class Person:
     def id_exp_date(self):
         return self._id_exp_date.strftime(self.DATE_FORMAT)
 
+    def get_id_exp_date(self):
+        return self._id_exp_date
+
     @property
     def full_name(self):
         return self._full_name

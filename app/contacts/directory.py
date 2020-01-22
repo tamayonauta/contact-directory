@@ -1,3 +1,4 @@
+from .contact import Contact
 from .contact import Person
 from .helpers import get_criminal_record
 from .helpers import get_personal_data
@@ -14,6 +15,10 @@ class Directory:
     @property
     def persons(self):
         return self._persons
+
+    @property
+    def contacts(self):
+        return self._contacts
 
     def add(
         self,
@@ -52,7 +57,7 @@ class Directory:
         if not self._is_score_valid(score):
             return False
 
-        # TODO: Save contact into directory
+        # Save contact into directory
         self._save_contact(person)
 
         return True
@@ -79,4 +84,12 @@ class Directory:
         return True if score >= self._MIN_SCORE_ACCEPTED else False
 
     def _save_contact(self, person):
-        self._contacts.append(person)
+        contact = Contact(
+            id_type=person.id_type,
+            id_number=person.id_number,
+            id_exp_date=person.get_id_exp_date(),
+            full_name=person.full_name,
+            email=person.email,
+            phone_number=person.phone_number
+        )
+        self._contacts.append(contact)
