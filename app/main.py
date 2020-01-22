@@ -68,7 +68,7 @@ def get_id_exp_date():
         "Ingrese fecha de expedición de documento (YYYY-MM-DD):\n"
     ))
 
-    return datetime.strptime(id_exp_date, "%Y-%m-%d")
+    return datetime.strptime(id_exp_date, Person.DATE_FORMAT)
 
 
 def get_full_name():

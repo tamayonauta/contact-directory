@@ -21,7 +21,10 @@ class PersonTestCase(unittest.TestCase):
         self.assertIsInstance(person, Person)
         self.assertEqual(person.id_type, data["id_type"])
         self.assertEqual(person.id_number, data["id_number"])
-        self.assertEqual(person.id_exp_date, data["id_exp_date"])
+        self.assertEqual(
+            person.id_exp_date,
+            data["id_exp_date"].strftime(Person.DATE_FORMAT)
+        )
         self.assertEqual(person.full_name, data["full_name"])
         self.assertEqual(person.email, data["email"])
         self.assertEqual(person.phone_number, data["phone_number"])
@@ -43,7 +46,10 @@ class ContactTestCase(unittest.TestCase):
         self.assertIsInstance(contact, Contact)
         self.assertEqual(contact.id_type, data["id_type"])
         self.assertEqual(contact.id_number, data["id_number"])
-        self.assertEqual(contact.id_exp_date, data["id_exp_date"])
+        self.assertEqual(
+            contact.id_exp_date,
+            data["id_exp_date"].strftime(Person.DATE_FORMAT)
+        )
         self.assertEqual(contact.full_name, data["full_name"])
         self.assertEqual(contact.email, data["email"])
         self.assertEqual(contact.phone_number, data["phone_number"])

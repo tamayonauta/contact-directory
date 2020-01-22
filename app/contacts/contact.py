@@ -1,5 +1,6 @@
 class Person:
     ID_TYPES = ("CC", "CE", "PP")
+    DATE_FORMAT = "%Y-%m-%d"
 
     def __init__(
         self,
@@ -27,7 +28,7 @@ class Person:
 
     @property
     def id_exp_date(self):
-        return self._id_exp_date
+        return self._id_exp_date.strftime(self.DATE_FORMAT)
 
     @property
     def full_name(self):
