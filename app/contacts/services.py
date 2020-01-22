@@ -33,10 +33,14 @@ class RatingSystemService:
         return response
 
     def _get_score(self, person):
-        data = {"person": person}
+        data = self._format_score_data(person)
         response = send_post_request(self._GET_SCORE_URL, data)
 
         return response
+
+    def _format_score_data(self, person):
+        data = {"id_number": person['id_number']}
+        return data
 
     def _serialize_score(self, response):
         return serialize_response(response, key="score")
@@ -68,10 +72,14 @@ class PoliceSystemService:
         return response
 
     def _get_criminal_record(self, person):
-        data = {"person": person}
+        data = self._format_criminal_record_data(person)
         response = send_post_request(self._GET_CRIMINAL_RECORD_URL, data)
 
         return response
+
+    def _format_criminal_record_data(self, person):
+        data = {"id_number": person['id_number']}
+        return data
 
     def _serialize_criminal_record(self, response):
         return serialize_response(response, key="criminal_record")
@@ -105,10 +113,14 @@ class IdentificationSystemService:
         return response
 
     def _get_personal_data(self, person):
-        data = {"person": person}
+        data = self._format_personal_data(person)
         response = send_post_request(self._GET_PERSONAL_DATA_URL, data)
 
         return response
+
+    def _format_personal_data(self, person):
+        data = {"id_number": person['id_number']}
+        return data
 
     def _serialize_personal_data(self, response):
         return serialize_response(response)
