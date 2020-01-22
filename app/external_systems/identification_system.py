@@ -14,7 +14,7 @@ class IdentificationSystem:
             return None
 
         for personal_data in PERSONAL_DATA:
-            if person['id_number'] == personal_data['id_number']:
+            if personal_data['id_number'] == person['id_number']:
                 return personal_data
 
         return None
