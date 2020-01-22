@@ -20,6 +20,18 @@ class Directory:
     def contacts(self):
         return self._contacts
 
+    def show(self):
+        if not self._contacts:
+            print("No hay contactos")
+        else:
+            for contact in self._contacts:
+                self.show_contact(contact)
+
+    def show_contact(self, contact):
+        print("==========")
+        print(contact)
+        print("==========")
+
     def add(
         self,
         id_type,

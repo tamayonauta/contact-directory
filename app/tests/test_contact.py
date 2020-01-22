@@ -55,6 +55,27 @@ class ContactTestCase(unittest.TestCase):
         self.assertEqual(contact.phone_number, data["phone_number"])
         self.assertTrue(contact.is_accepted)
 
+    def test_print_contact(self):
+        data = {
+            "id_type": "CC",
+            "id_number": "1000000",
+            "id_exp_date": date(2001, 1, 11),
+            "full_name": "John Doe",
+            "email": "john@mail.com",
+            "phone_number": "1234567890"
+        }
+        contact = Contact(**data)
+        expected_result = (
+            f"id_type: {contact.id_type}\n" +
+            f"id_number: {contact.id_number}\n" +
+            f"id_exp_date: {contact.id_exp_date}\n" +
+            f"full_name: {contact.full_name}\n" +
+            f"email: {contact.email}\n" +
+            f"phone_number: {contact.phone_number}"
+        )
+
+        self.assertEqual(contact.__str__(), expected_result)
+
 
 if __name__ == "__main__":
     unittest.main()

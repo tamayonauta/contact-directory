@@ -13,6 +13,7 @@ def run():
         command = str(input(
             "\nSeleccione una opción:\n\n" +
             "[a] Agregar nuevo contacto\n" +
+            "[b] Mostrar contactos\n" +
             "[x] Salir\n"
         ))
 
@@ -41,6 +42,8 @@ def run():
             except ValueError as err:
                 print(err)
                 continue
+        elif command == "b":
+            directory.show()
         elif command == "x":
             break
         else:

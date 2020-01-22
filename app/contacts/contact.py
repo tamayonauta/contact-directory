@@ -70,3 +70,14 @@ class Contact(Person):
     @property
     def is_accepted(self):
         return self._is_accepted
+
+    def __str__(self):
+        content = (
+            f"id_type: {self.id_type}\n" +
+            f"id_number: {self.id_number}\n" +
+            f"id_exp_date: {self.id_exp_date}\n" +
+            f"full_name: {self.full_name}\n" +
+            f"email: {self.email}\n" +
+            f"phone_number: {self.phone_number}"
+        )
+        return content
