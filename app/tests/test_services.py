@@ -29,10 +29,12 @@ class PoliceSystemServiceTestCase(unittest.TestCase):
 
 class IdentificationSystemServiceTestCase(unittest.TestCase):
 
-    def test_get_person_data(self):
+    def test_get_personal_data(self):
         person = {"id_number": "1000000"}
         identification_system_service = IdentificationSystemService()
-        response = identification_system_service.get_person_data(person=person)
+        response = identification_system_service.get_personal_data(
+            person=person
+        )
 
         self.assertEqual(response.status_code, 200)
         self.assertIsInstance(response.json(), dict)

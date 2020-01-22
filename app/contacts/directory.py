@@ -54,11 +54,13 @@ class Directory:
 
         return criminal_record
 
-    def _get_person_data(self, person):
+    def _get_personal_data(self, person):
         identification_system_service = IdentificationSystemService()
-        response = identification_system_service.get_person_data(person=person)
-        person_data = identification_system_service._serialize_person_data(
+        response = identification_system_service.get_personal_data(
+            person=person
+        )
+        personal_data = identification_system_service._serialize_personal_data(
             response
         )
 
-        return person_data
+        return personal_data

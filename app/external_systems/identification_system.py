@@ -1,20 +1,20 @@
-from .data import PERSONS_DATA
+from .data import PERSONAL_DATA
 
 
 class IdentificationSystem:
 
     @classmethod
-    def get_person_data(cls, person):
-        person_data = cls._get_person_data(person)
-        return person_data
+    def get_personal_data(cls, person):
+        personal_data = cls._get_personal_data(person)
+        return personal_data
 
     @classmethod
-    def _get_person_data(cls, person):
+    def _get_personal_data(cls, person):
         if not len(person) or "id_number" not in person:
             return None
 
-        for person_data in PERSONS_DATA:
-            if person['id_number'] == person_data['id_number']:
-                return person_data
+        for personal_data in PERSONAL_DATA:
+            if person['id_number'] == personal_data['id_number']:
+                return personal_data
 
         return None

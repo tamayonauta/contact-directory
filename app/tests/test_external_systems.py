@@ -44,45 +44,45 @@ class PoliceSystemTestCase(unittest.TestCase):
 
 class IdentificationSystemTestCase(unittest.TestCase):
 
-    def test_get_person_data(self):
+    def test_get_personal_data(self):
         person = {"id_number": "1000000"}
-        person_data = IdentificationSystem._get_person_data(person)
+        personal_data = IdentificationSystem._get_personal_data(person)
 
-        self.assertGreaterEqual(len(person_data), 1)
+        self.assertGreaterEqual(len(personal_data), 1)
 
-    def test_get_person_data_with_same_data(self):
+    def test_get_personal_data_with_same_data(self):
         person = {
             "id_type": "CC",
             "id_number": "1000000",
             "id_exp_date": "2001-01-11",
             "full_name": "John Doe"
         }
-        person_data = IdentificationSystem._get_person_data(person)
+        personal_data = IdentificationSystem._get_personal_data(person)
 
-        self.assertDictEqual(person_data, person)
+        self.assertDictEqual(personal_data, person)
 
-    def test_get_person_data_with_different_data(self):
+    def test_get_personal_data_with_different_data(self):
         person = {
             "id_type": "CC",
             "id_number": "1000000",
             "id_exp_date": "2001-01-11",
             "full_name": "Andrew Doe"
         }
-        person_data = IdentificationSystem._get_person_data(person)
+        personal_data = IdentificationSystem._get_personal_data(person)
 
-        self.assertCountEqual(person_data, person)
+        self.assertCountEqual(personal_data, person)
 
-    def test_get_person_data_not_exists(self):
+    def test_get_personal_data_not_exists(self):
         person = {"id_number": "9000000"}
-        person_data = IdentificationSystem._get_person_data(person)
+        personal_data = IdentificationSystem._get_personal_data(person)
 
-        self.assertIsNone(person_data)
+        self.assertIsNone(personal_data)
 
-    def test_get_invalid_person_data(self):
+    def test_get_invalid_personal_data(self):
         person = {}
-        person_data = IdentificationSystem._get_person_data(person)
+        personal_data = IdentificationSystem._get_personal_data(person)
 
-        self.assertIsNone(person_data)
+        self.assertIsNone(personal_data)
 
 
 if __name__ == "__main__":

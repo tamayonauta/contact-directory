@@ -78,37 +78,39 @@ class PoliceSystemService:
 
 
 class IdentificationSystemService:
-    _GET_PERSON_DATA_URL = "https://identification-system.dev/person-data/"
+    _GET_PERSONAL_DATA_URL = "https://identification-system.dev/personal-data/"
 
     def __init__(self):
         pass
 
-    def get_person_data(self, person):
+    def get_personal_data(self, person):
         """
-        Mock request of the _get_person_data method
+        Mock request of the _get_personal_data method
         """
         # TODO: This method should delete when the system is already working
-        # TODO: Use the _get_person_data method instead this method
+        # TODO: Use the _get_personal_data method instead this method
 
         with patch("requests.post") as mock_post:
-            person_data = IdentificationSystem.get_person_data(person=person)
+            personal_data = IdentificationSystem.get_personal_data(
+                person=person
+            )
 
             # Configure the mock to return a response with status code 200
             mock_post.return_value.status_code = 200
-            mock_post.return_value.json.return_value = person_data
+            mock_post.return_value.json.return_value = personal_data
 
             # Call the function, which will send a request to the server
-            response = self._get_person_data(person=person)
+            response = self._get_personal_data(person=person)
 
         return response
 
-    def _get_person_data(self, person):
+    def _get_personal_data(self, person):
         data = {"person": person}
-        response = send_post_request(self._GET_PERSON_DATA_URL, data)
+        response = send_post_request(self._GET_PERSONAL_DATA_URL, data)
 
         return response
 
-    def _serialize_person_data(self, response):
+    def _serialize_personal_data(self, response):
         return serialize_response(response)
 
 

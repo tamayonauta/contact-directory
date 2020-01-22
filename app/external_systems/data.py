@@ -1,4 +1,4 @@
-PERSONS_DATA = [
+PERSONAL_DATA = [
     {
         "id_type": "CC",
         "id_number": "1000000",
