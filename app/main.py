@@ -1,7 +1,7 @@
 from datetime import date
 from datetime import datetime
 
-from contacts.contact import Contact
+from contacts.contact import Person
 from contacts.directory import Directory
 
 
@@ -54,9 +54,9 @@ def get_id_type():
         "[ce] Cédula de extranjeria\n" +
         "[pp] Pasaporte\n"
     ))
-    index = Contact.ID_TYPES.index(id_type.upper())
+    index = Person.ID_TYPES.index(id_type.upper())
 
-    return Contact.ID_TYPES[index]
+    return Person.ID_TYPES[index]
 
 
 def get_id_number():
