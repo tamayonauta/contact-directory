@@ -1,11 +1,12 @@
-import time
 from unittest.mock import patch
-
-import requests
 
 from external_systems.identification_system import IdentificationSystem
 from external_systems.police_system import PoliceSystem
 from external_systems.rating_system import RatingSystem
+
+from .utils import send_post_request
+from .utils import serialize_response
+from .utils import simulate_request_latency
 
 
 class RatingSystemService:
@@ -117,43 +118,3 @@ class IdentificationSystemService:
     def _get_personal_data(self, data):
         response = send_post_request(self._GET_PERSONAL_DATA_URL, data)
         return response
-
-
-# Utils
-
-def simulate_request_latency():
-    """
-    Simulate request latency
-    """
-
-    SECONDS = 2
-    time.sleep(SECONDS)
-
-
-def send_post_request(url, data):
-    """
-    Send POST request
-    """
-
-    response = requests.post(url=url, data=data)
-
-    if response.ok:
-        return response
-    else:
-        return None
-
-
-def serialize_response(response, key=None):
-    """
-    Get body response formatted
-    """
-
-    if response is None:
-        raise ValueError("Could not get content")
-
-    body = response.json()
-
-    if key and key in body:
-        return body[key]
-
-    return body

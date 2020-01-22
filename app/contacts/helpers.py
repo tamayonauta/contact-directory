@@ -1,6 +1,6 @@
-from .services import IdentificationSystemService
-from .services import PoliceSystemService
-from .services import RatingSystemService
+from services.external_service import IdentificationSystemService
+from services.external_service import PoliceSystemService
+from services.external_service import RatingSystemService
 
 
 def get_personal_data(person):

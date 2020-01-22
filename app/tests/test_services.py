@@ -1,8 +1,8 @@
 import unittest
 
-from contacts.services import IdentificationSystemService
-from contacts.services import PoliceSystemService
-from contacts.services import RatingSystemService
+from services.external_service import IdentificationSystemService
+from services.external_service import PoliceSystemService
+from services.external_service import RatingSystemService
 
 
 class RatingSystemServiceTestCase(unittest.TestCase):
