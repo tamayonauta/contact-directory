@@ -10,10 +10,14 @@ from external_systems.rating_system import RatingSystem
 class RatingSystemService:
     _GET_SCORE_URL = "https://rating-system.dev/score/"
 
-    def __init__(self):
-        pass
+    def format_score_data(self, person):
+        data = {"id_number": person.id_number}
+        return data
 
-    def get_score(self, person):
+    def serialize_score(self, response):
+        return serialize_response(response, key="score")
+
+    def get_score(self, data):
         """
         Mock request of the _get_score method
         """
@@ -21,38 +25,33 @@ class RatingSystemService:
         # TODO: Use the _get_score method instead this method
 
         with patch("requests.post") as mock_post:
-            score = RatingSystem.get_score(person=person)
+            score = RatingSystem.get_score(data)
 
             # Configure the mock to return a response with status code 200
             mock_post.return_value.status_code = 200
             mock_post.return_value.json.return_value = score
 
             # Call the function, which will send a request to the server
-            response = self._get_score(person=person)
+            response = self._get_score(data)
 
         return response
 
-    def _get_score(self, person):
-        data = self._format_score_data(person)
+    def _get_score(self, data):
         response = send_post_request(self._GET_SCORE_URL, data)
-
         return response
-
-    def _format_score_data(self, person):
-        data = {"id_number": person['id_number']}
-        return data
-
-    def _serialize_score(self, response):
-        return serialize_response(response, key="score")
 
 
 class PoliceSystemService:
     _GET_CRIMINAL_RECORD_URL = "https://police-system.dev/criminal-record/"
 
-    def __init__(self):
-        pass
+    def format_criminal_record_data(self, person):
+        data = {"id_number": person.id_number}
+        return data
 
-    def get_criminal_record(self, person):
+    def serialize_criminal_record(self, response):
+        return serialize_response(response, key="criminal_record")
+
+    def get_criminal_record(self, data):
         """
         Mock request of the _get_criminal_record method
         """
@@ -60,38 +59,33 @@ class PoliceSystemService:
         # TODO: Use the _get_criminal_record method instead this method
 
         with patch("requests.post") as mock_post:
-            criminal_record = PoliceSystem.get_criminal_record(person=person)
+            criminal_record = PoliceSystem.get_criminal_record(data)
 
             # Configure the mock to return a response with status code 200
             mock_post.return_value.status_code = 200
             mock_post.return_value.json.return_value = criminal_record
 
             # Call the function, which will send a request to the server
-            response = self._get_criminal_record(person=person)
+            response = self._get_criminal_record(data)
 
         return response
 
-    def _get_criminal_record(self, person):
-        data = self._format_criminal_record_data(person)
+    def _get_criminal_record(self, data):
         response = send_post_request(self._GET_CRIMINAL_RECORD_URL, data)
-
         return response
-
-    def _format_criminal_record_data(self, person):
-        data = {"id_number": person['id_number']}
-        return data
-
-    def _serialize_criminal_record(self, response):
-        return serialize_response(response, key="criminal_record")
 
 
 class IdentificationSystemService:
     _GET_PERSONAL_DATA_URL = "https://identification-system.dev/personal-data/"
 
-    def __init__(self):
-        pass
+    def format_personal_data(self, person):
+        data = {"id_number": person.id_number}
+        return data
 
-    def get_personal_data(self, person):
+    def serialize_personal_data(self, response):
+        return serialize_response(response)
+
+    def get_personal_data(self, data):
         """
         Mock request of the _get_personal_data method
         """
@@ -99,31 +93,20 @@ class IdentificationSystemService:
         # TODO: Use the _get_personal_data method instead this method
 
         with patch("requests.post") as mock_post:
-            personal_data = IdentificationSystem.get_personal_data(
-                person=person
-            )
+            personal_data = IdentificationSystem.get_personal_data(data)
 
             # Configure the mock to return a response with status code 200
             mock_post.return_value.status_code = 200
             mock_post.return_value.json.return_value = personal_data
 
             # Call the function, which will send a request to the server
-            response = self._get_personal_data(person=person)
+            response = self._get_personal_data(data)
 
         return response
 
-    def _get_personal_data(self, person):
-        data = self._format_personal_data(person)
+    def _get_personal_data(self, data):
         response = send_post_request(self._GET_PERSONAL_DATA_URL, data)
-
         return response
-
-    def _format_personal_data(self, person):
-        data = {"id_number": person['id_number']}
-        return data
-
-    def _serialize_personal_data(self, response):
-        return serialize_response(response)
 
 
 # Utils
