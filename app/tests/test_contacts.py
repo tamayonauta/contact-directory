@@ -24,7 +24,7 @@ class DirectoryTestCase(unittest.TestCase):
 
     def test_get_score(self):
         directory = Directory()
-        person = {}
+        person = {"id_number": "1000000"}
         score = directory._get_score(person=person)
 
         self.assertIsInstance(score, int)
@@ -36,12 +36,26 @@ class DirectoryTestCase(unittest.TestCase):
 
         self.assertIsInstance(criminal_record, bool)
 
+    def test_get_invalid_criminal_record(self):
+        directory = Directory()
+        person = {"id_number": ""}
+        criminal_record = directory._get_criminal_record(person=person)
+
+        self.assertIsNone(criminal_record)
+
     def test_get_personal_data(self):
         directory = Directory()
         person = {"id_number": "1000000"}
         personal_data = directory._get_personal_data(person=person)
 
         self.assertIsInstance(personal_data, dict)
+
+    def test_get_invalid_personal_data(self):
+        directory = Directory()
+        person = {"id_number": ""}
+        personal_data = directory._get_personal_data(person=person)
+
+        self.assertIsNone(personal_data)
 
 
 if __name__ == "__main__":
