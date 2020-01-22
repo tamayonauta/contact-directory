@@ -1,5 +1,6 @@
 from .contact import Contact
 from .contact import Person
+from .exceptions import PersonValidationError
 from .helpers import get_criminal_record
 from .helpers import get_personal_data
 from .helpers import get_score
@@ -36,17 +37,20 @@ class Directory:
         email,
         phone_number
     ):
-        if self._add_contact(
-            id_type,
-            id_number,
-            id_exp_date,
-            full_name,
-            email,
-            phone_number
-        ):
-            print("Operación exitosa")
+        try:
+            self._add_contact(
+                id_type=id_type,
+                id_number=id_number,
+                id_exp_date=id_exp_date,
+                full_name=full_name,
+                email=email,
+                phone_number=phone_number
+            )
+        except PersonValidationError as err:
+            print(err)
+            print("No se pudo agregar el contacto")
         else:
-            print("El contacto no se puede agregar al directorio")
+            print("Se ha agregado el contacto exitosamente")
 
     def _add_contact(
         self,
@@ -68,7 +72,7 @@ class Directory:
 
         # Validate if person already exists
         if self._is_person_exists(person):
-            return False
+            raise PersonValidationError("El prospecto ya existe")
 
         self._save_person(person)
 
@@ -76,24 +80,30 @@ class Directory:
         personal_data = get_personal_data(person)
         # Validate personal data
         if not self._is_personal_data_valid(person, personal_data):
-            return False
+            raise PersonValidationError(
+                "Datos incorrectos de acuerdo al Sistema de Identificación"
+            )
 
         # Get criminal record
         criminal_record = get_criminal_record(person)
         # Validate criminal record
         if not self._is_criminal_record_valid(criminal_record):
-            return False
+            raise PersonValidationError(
+                "El prospecto tiene antecedentes de acuerdo al Sistema de la "
+                "Policía"
+            )
 
         # Get score
         score = get_score(person)
         # Validate score
         if not self._is_score_valid(score):
-            return False
+            raise PersonValidationError(
+                f"El puntaje ({score}) es insuficiente de acuerdo al Sistema "
+                "de Calificación"
+            )
 
         # Save contact into directory
         self._save_contact(person)
-
-        return True
 
     def _show_contact(self, contact):
         print("==========")
