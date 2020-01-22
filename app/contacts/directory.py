@@ -25,14 +25,30 @@ class Directory:
             print("No hay contactos")
         else:
             for contact in self._contacts:
-                self.show_contact(contact)
-
-    def show_contact(self, contact):
-        print("==========")
-        print(contact)
-        print("==========")
+                self._show_contact(contact)
 
     def add(
+        self,
+        id_type,
+        id_number,
+        id_exp_date,
+        full_name,
+        email,
+        phone_number
+    ):
+        if self._add_contact(
+            id_type,
+            id_number,
+            id_exp_date,
+            full_name,
+            email,
+            phone_number
+        ):
+            print("Operación exitosa")
+        else:
+            print("El contacto no se puede agregar al directorio")
+
+    def _add_contact(
         self,
         id_type,
         id_number,
@@ -78,6 +94,11 @@ class Directory:
         self._save_contact(person)
 
         return True
+
+    def _show_contact(self, contact):
+        print("==========")
+        print(contact)
+        print("==========")
 
     def _is_person_exists(self, new_person):
         for person in self._persons:

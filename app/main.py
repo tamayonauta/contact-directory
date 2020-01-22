@@ -25,8 +25,10 @@ def run():
                 full_name = get_full_name()
                 email = get_email()
                 phone_number = get_phone_number()
-
-                result = directory.add(
+            except ValueError as err:
+                print(err)
+            else:
+                directory.add(
                     id_type=id_type,
                     id_number=id_number,
                     id_exp_date=id_exp_date,
@@ -34,14 +36,6 @@ def run():
                     email=email,
                     phone_number=phone_number
                 )
-
-                if result:
-                    print("Operación exitosa")
-                else:
-                    print("El contacto no se puede agregar al directorio")
-            except ValueError as err:
-                print(err)
-                continue
         elif command == "b":
             directory.show()
         elif command == "x":
