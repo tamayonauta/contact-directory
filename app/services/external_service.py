@@ -34,7 +34,7 @@ class RatingSystemService:
             mock_post.return_value.json.return_value = score
 
             # Simulate request latency
-            simulate_request_latency()
+            simulate_request_latency(1)
 
             # Call the function, which will send a request to the server
             response = self._get_score(data)
@@ -71,7 +71,7 @@ class PoliceSystemService:
             mock_post.return_value.json.return_value = criminal_record
 
             # Simulate request latency
-            simulate_request_latency()
+            simulate_request_latency(2)
 
             # Call the function, which will send a request to the server
             response = self._get_criminal_record(data)
@@ -108,7 +108,7 @@ class IdentificationSystemService:
             mock_post.return_value.json.return_value = personal_data
 
             # Simulate request latency
-            simulate_request_latency()
+            simulate_request_latency(4)
 
             # Call the function, which will send a request to the server
             response = self._get_personal_data(data)

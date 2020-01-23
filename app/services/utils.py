@@ -1,15 +1,14 @@
-import time
+from time import sleep
 
 import requests
 
 
-def simulate_request_latency():
+def simulate_request_latency(seconds=0):
     """
     Simulate request latency
     """
 
-    SECONDS = 2
-    time.sleep(SECONDS)
+    sleep(seconds)
 
 
 def send_post_request(url, data):
