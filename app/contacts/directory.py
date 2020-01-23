@@ -7,10 +7,9 @@ from .helpers import get_score
 
 
 class Directory:
-    _MIN_SCORE_ACCEPTED = 60
 
     def __init__(self):
-        self._persons = []
+        self._persons = []  # person = candidate to be contact
         self._contacts = []
 
     @property
@@ -74,8 +73,48 @@ class Directory:
         if self._is_person_exists(person):
             raise PersonValidationError("El prospecto ya existe")
 
+        # Save person
         self._save_person(person)
+        # Validate person
+        self._validate_person(person)
+        # Save contact
+        self._save_contact(person)
 
+    def _show_contact(self, contact):
+        print("==========")
+        print(contact)
+        print("==========")
+
+    def _validate_person(self, person):
+        person_validator = PersonValidator()
+        person_validator.validate(person)
+
+    def _is_person_exists(self, new_person):
+        for person in self._persons:
+            if person.id_number == new_person.id_number:
+                return True
+
+        return False
+
+    def _save_person(self, person):
+        self._persons.append(person)
+
+    def _save_contact(self, person):
+        contact = Contact(
+            id_type=person.id_type,
+            id_number=person.id_number,
+            id_exp_date=person.get_id_exp_date(),
+            full_name=person.full_name,
+            email=person.email,
+            phone_number=person.phone_number
+        )
+        self._contacts.append(contact)
+
+
+class PersonValidator:
+    _MIN_SCORE_ACCEPTED = 60
+
+    def validate(self, person):
         # Get personal data
         personal_data = get_personal_data(person)
         # Validate personal data
@@ -98,27 +137,9 @@ class Directory:
         # Validate score
         if not self._is_score_valid(score):
             raise PersonValidationError(
-                f"El puntaje ({score}) es insuficiente de acuerdo al Sistema "
-                "de Calificación"
+                f"El puntaje ({score}) es insuficiente de acuerdo al "
+                "Sistema de Calificación"
             )
-
-        # Save contact into directory
-        self._save_contact(person)
-
-    def _show_contact(self, contact):
-        print("==========")
-        print(contact)
-        print("==========")
-
-    def _is_person_exists(self, new_person):
-        for person in self._persons:
-            if person.id_number == new_person.id_number:
-                return True
-
-        return False
-
-    def _save_person(self, person):
-        self._persons.append(person)
 
     def _is_personal_data_valid(self, person, personal_data):
         if (
@@ -137,14 +158,3 @@ class Directory:
 
     def _is_score_valid(self, score):
         return True if score >= self._MIN_SCORE_ACCEPTED else False
-
-    def _save_contact(self, person):
-        contact = Contact(
-            id_type=person.id_type,
-            id_number=person.id_number,
-            id_exp_date=person.get_id_exp_date(),
-            full_name=person.full_name,
-            email=person.email,
-            phone_number=person.phone_number
-        )
-        self._contacts.append(contact)
