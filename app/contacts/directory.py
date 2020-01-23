@@ -87,7 +87,7 @@ class Directory:
 
     def _validate_person(self, person):
         person_validator = PersonValidator()
-        person_validator.validate(person)
+        print("validate", person_validator.validate(person))
 
     def _is_person_exists(self, new_person):
         for person in self._persons:
@@ -113,33 +113,69 @@ class Directory:
 
 class PersonValidator:
     _MIN_SCORE_ACCEPTED = 60
+    _VALIDATION_TYPES = {
+        "PERSONAL_DATA": False,
+        "CRIMINAL_RECORD": False,
+        "SCORE": False
+    }
 
     def validate(self, person):
-        # Get personal data
-        personal_data = get_personal_data(person)
         # Validate personal data
-        if not self._is_personal_data_valid(person, personal_data):
+
+        is_personal_data_valid = self._validate_personal_data(person)
+
+        if not is_personal_data_valid:
             raise PersonValidationError(
                 "Datos incorrectos de acuerdo al Sistema de Identificación"
             )
 
-        # Get criminal record
-        criminal_record = get_criminal_record(person)
+        self._VALIDATION_TYPES['PERSONAL_DATA'] = True
+
         # Validate criminal record
-        if not self._is_criminal_record_valid(criminal_record):
+
+        is_criminal_record_valid = self._validate_criminal_record(person)
+
+        if not is_criminal_record_valid:
             raise PersonValidationError(
                 "El prospecto tiene antecedentes judiciales de acuerdo al "
                 "Sistema de la Policía"
             )
 
-        # Get score
+        self._VALIDATION_TYPES['CRIMINAL_RECORD'] = True
+
+        if (
+            self._VALIDATION_TYPES['PERSONAL_DATA'] and
+            self._VALIDATION_TYPES['CRIMINAL_RECORD']
+        ):
+            # Validate score
+
+            is_score_valid = self._validate_score(person)
+
+            if not is_score_valid:
+                raise PersonValidationError(
+                    f"El puntaje es insuficiente de acuerdo al "
+                    "Sistema de Calificación"
+                )
+
+            self._VALIDATION_TYPES['SCORE'] = True
+
+        for validation_type in self._VALIDATION_TYPES:
+            if not self._VALIDATION_TYPES[validation_type]:
+                return False
+
+        return True
+
+    def _validate_personal_data(self, person):
+        personal_data = get_personal_data(person)
+        return self._is_personal_data_valid(person, personal_data)
+
+    def _validate_criminal_record(self, person):
+        criminal_record = get_criminal_record(person)
+        return self._is_criminal_record_valid(criminal_record)
+
+    def _validate_score(self, person):
         score = get_score(person)
-        # Validate score
-        if not self._is_score_valid(score):
-            raise PersonValidationError(
-                f"El puntaje ({score}) es insuficiente de acuerdo al "
-                "Sistema de Calificación"
-            )
+        return self._is_score_valid(score)
 
     def _is_personal_data_valid(self, person, personal_data):
         if (
