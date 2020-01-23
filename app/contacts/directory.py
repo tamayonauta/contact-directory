@@ -1,9 +1,8 @@
 from .contact import Contact
 from .contact import Person
 from .exceptions import PersonValidationError
-from .helpers import get_criminal_record
-from .helpers import get_personal_data
-from .helpers import get_score
+from .utils import run_parallel_validators
+from .utils import run_score_validator
 
 
 class Directory:
@@ -86,8 +85,28 @@ class Directory:
         print("==========")
 
     def _validate_person(self, person):
-        person_validator = PersonValidator()
-        print("validate", person_validator.validate(person))
+        validation_results = run_parallel_validators(person)
+
+        # Check personal data validation
+        if not validation_results[0]:
+            raise PersonValidationError(
+                "Datos incorrectos de acuerdo al Sistema de Identificación"
+            )
+
+        # Check criminal record validation
+        if not validation_results[1]:
+            raise PersonValidationError(
+                "El prospecto tiene antecedentes judiciales de acuerdo al "
+                "Sistema de la Policía"
+            )
+
+        # Check score validation
+        score_validation_result = run_score_validator(person)
+        if not score_validation_result:
+            raise PersonValidationError(
+                f"El puntaje es insuficiente de acuerdo al "
+                "Sistema de Calificación"
+            )
 
     def _is_person_exists(self, new_person):
         for person in self._persons:
@@ -109,88 +128,3 @@ class Directory:
             phone_number=person.phone_number
         )
         self._contacts.append(contact)
-
-
-class PersonValidator:
-    _MIN_SCORE_ACCEPTED = 60
-    _VALIDATION_TYPES = {
-        "PERSONAL_DATA": False,
-        "CRIMINAL_RECORD": False,
-        "SCORE": False
-    }
-
-    def validate(self, person):
-        # Validate personal data
-
-        is_personal_data_valid = self._validate_personal_data(person)
-
-        if not is_personal_data_valid:
-            raise PersonValidationError(
-                "Datos incorrectos de acuerdo al Sistema de Identificación"
-            )
-
-        self._VALIDATION_TYPES['PERSONAL_DATA'] = True
-
-        # Validate criminal record
-
-        is_criminal_record_valid = self._validate_criminal_record(person)
-
-        if not is_criminal_record_valid:
-            raise PersonValidationError(
-                "El prospecto tiene antecedentes judiciales de acuerdo al "
-                "Sistema de la Policía"
-            )
-
-        self._VALIDATION_TYPES['CRIMINAL_RECORD'] = True
-
-        if (
-            self._VALIDATION_TYPES['PERSONAL_DATA'] and
-            self._VALIDATION_TYPES['CRIMINAL_RECORD']
-        ):
-            # Validate score
-
-            is_score_valid = self._validate_score(person)
-
-            if not is_score_valid:
-                raise PersonValidationError(
-                    f"El puntaje es insuficiente de acuerdo al "
-                    "Sistema de Calificación"
-                )
-
-            self._VALIDATION_TYPES['SCORE'] = True
-
-        for validation_type in self._VALIDATION_TYPES:
-            if not self._VALIDATION_TYPES[validation_type]:
-                return False
-
-        return True
-
-    def _validate_personal_data(self, person):
-        personal_data = get_personal_data(person)
-        return self._is_personal_data_valid(person, personal_data)
-
-    def _validate_criminal_record(self, person):
-        criminal_record = get_criminal_record(person)
-        return self._is_criminal_record_valid(criminal_record)
-
-    def _validate_score(self, person):
-        score = get_score(person)
-        return self._is_score_valid(score)
-
-    def _is_personal_data_valid(self, person, personal_data):
-        if (
-            personal_data is None or
-            person.id_type != personal_data['id_type'] or
-            person.id_number != personal_data['id_number'] or
-            person.id_exp_date != personal_data['id_exp_date'] or
-            person.full_name.lower() != personal_data['full_name'].lower()
-        ):
-            return False
-
-        return True
-
-    def _is_criminal_record_valid(self, criminal_record):
-        return True if not criminal_record else False
-
-    def _is_score_valid(self, score):
-        return True if score >= self._MIN_SCORE_ACCEPTED else False

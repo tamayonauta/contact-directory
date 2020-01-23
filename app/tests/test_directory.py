@@ -4,41 +4,42 @@ from datetime import date
 from contacts.contact import Contact
 from contacts.contact import Person
 from contacts.directory import Directory
-from contacts.directory import PersonValidator
+from contacts.validations import CriminalRecordValidator
+from contacts.validations import PersonalDataValidator
+from contacts.validations import ScoreValidator
 
 
 class PersonValidatorTestCase(unittest.TestCase):
 
     def test_is_score_valid(self):
-        person_validator = PersonValidator()
         score = 60
-        result = person_validator._is_score_valid(score)
+        result = ScoreValidator._is_score_valid(score)
 
         self.assertTrue(result)
 
     def test_is_not_score_valid(self):
-        person_validator = PersonValidator()
         score = 59
-        result = person_validator._is_score_valid(score)
+        result = ScoreValidator._is_score_valid(score)
 
         self.assertFalse(result)
 
     def test_is_criminal_record_valid(self):
-        person_validator = PersonValidator()
         criminal_record = False
-        result = person_validator._is_criminal_record_valid(criminal_record)
+        result = CriminalRecordValidator._is_criminal_record_valid(
+            criminal_record
+        )
 
         self.assertTrue(result)
 
     def test_is_not_criminal_record_valid(self):
-        person_validator = PersonValidator()
         criminal_record = True
-        result = person_validator._is_criminal_record_valid(criminal_record)
+        result = CriminalRecordValidator._is_criminal_record_valid(
+            criminal_record
+        )
 
         self.assertFalse(result)
 
     def test_is_personal_data_valid(self):
-        person_validator = PersonValidator()
         person = Person(
             id_type="CC",
             id_number="1000000",
@@ -53,12 +54,13 @@ class PersonValidatorTestCase(unittest.TestCase):
             "id_exp_date": "2001-01-11",
             "full_name": "John Doe"
         }
-        result = person_validator._is_personal_data_valid(person, personal_data)
+        result = PersonalDataValidator._is_personal_data_valid(
+            person, personal_data
+        )
 
         self.assertTrue(result)
 
     def test_is_not_personal_data_valid(self):
-        person_validator = PersonValidator()
         person = Person(
             id_type="CC",
             id_number="1000000",
@@ -73,7 +75,9 @@ class PersonValidatorTestCase(unittest.TestCase):
             "id_exp_date": "2001-01-11",
             "full_name": "Jean Smith"
         }
-        result = person_validator._is_personal_data_valid(person, personal_data)
+        result = PersonalDataValidator._is_personal_data_valid(
+            person, personal_data
+        )
 
         self.assertFalse(result)
 
