@@ -1,0 +1,5 @@
+-r base.txt # includes the base.txt requirements file
+
+autopep8==1.5
+pycodestyle==2.5.0
+pylint==2.4.4

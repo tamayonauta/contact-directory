@@ -26,7 +26,7 @@ Application to simulate a contact directory
 1. Install requirements:
 
     ```sh
-    pip3 install -r app/requirements.txt
+    pip3 install -r app/requirements/production.txt
     ```
 
 1. Start project:
@@ -58,7 +58,7 @@ Application to simulate a contact directory
 1. Install requirements:
 
     ```sh
-    pip install -r app/requirements.txt
+    pip install -r app/requirements/local.txt
     ```
 
 1. Start project:

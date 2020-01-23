@@ -1,7 +1,0 @@
-autopep8==1.5
-pycodestyle==2.5.0
-pylint==2.4.4
-
-# Project
-
-requests==2.22.0
