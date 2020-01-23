@@ -40,4 +40,8 @@ def run_parallel_validators(person):
 
 
 def run_validator(Validator, person):
+    """
+    Execute validate function of the validator
+    """
+
     return Validator.validate(person)

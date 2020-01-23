@@ -3,10 +3,14 @@ from datetime import datetime
 
 from contacts.contact import Person
 from contacts.directory import Directory
-from messages import MSG_TO_ADD_CONTACT
+from resources.messages import MSG_TO_ADD_CONTACT
 
 
 def run():
+    """
+    Main function
+    """
+
     print("DIRECTORIO DE CONTACTOS")
     directory = Directory()
 
