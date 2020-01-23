@@ -75,6 +75,7 @@ class Directory:
         # Save person
         self._save_person(person)
         # Validate person
+        print("Validando información...")
         self._validate_person(person)
         # Save contact
         self._save_contact(person)

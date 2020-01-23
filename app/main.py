@@ -34,6 +34,7 @@ def run():
                 phone_number = get_phone_number()
             except ValueError as err:
                 print(err)
+                print("Valor inválido")
             else:
                 directory.add(
                     id_type=id_type,
