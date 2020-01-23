@@ -1,3 +1,10 @@
+from resources.messages import (
+    MSG_ADD_CONTACT_SUCCESSFULLY,
+    MSG_CANNOT_ADD_CONTACT,
+    MSG_NO_CONTACTS,
+    MSG_VALIDATING_INFO,
+)
+
 from .contact import Contact
 from .contact import Person
 from .exceptions import PersonValidationError
@@ -21,7 +28,7 @@ class Directory:
 
     def show(self):
         if not self._contacts:
-            print("No hay contactos")
+            print(MSG_NO_CONTACTS)
         else:
             for contact in self._contacts:
                 self._show_contact(contact)
@@ -46,9 +53,9 @@ class Directory:
             )
         except PersonValidationError as err:
             print(err)
-            print("No se pudo agregar el contacto")
+            print(MSG_CANNOT_ADD_CONTACT)
         else:
-            print("Se ha agregado el contacto exitosamente")
+            print(MSG_ADD_CONTACT_SUCCESSFULLY)
 
     def _add_contact(
         self,
@@ -75,7 +82,7 @@ class Directory:
         # Save person
         self._save_person(person)
         # Validate person
-        print("Validando información...")
+        print(MSG_VALIDATING_INFO)
         self._validate_person(person)
         # Save contact
         self._save_contact(person)
