@@ -23,16 +23,22 @@ Application to simulate a contact directory
     git clone git@github.com:tamayonauta/contact-directory.git
     ```
 
+1. Go to app directory:
+
+    ```sh
+    cd app
+    ```
+
 1. Install requirements:
 
     ```sh
-    pip3 install -r app/requirements/production.txt
+    pip3 install -r requirements/production.txt
     ```
 
 1. Start project:
 
     ```sh
-    python3 app/main.py
+    python3 main.py
     ```
 
 ## Develop
@@ -55,24 +61,35 @@ Application to simulate a contact directory
     source <my_env_name>/bin/activate
     ```
 
+1. Go to app directory:
+
+    ```sh
+    cd app
+    ```
+
 1. Install requirements:
 
     ```sh
-    pip install -r app/requirements/local.txt
+    pip install -r requirements/local.txt
     ```
 
 1. Start project:
 
     ```sh
-    python app/main.py
+    python main.py
     ```
 
 ## Testing
 
+1. Go to app directory:
+
+    ```sh
+    cd app
+    ```
+
 1. Run commands:
 
     ```sh
-    python -m unittest discover app/tests
     python -m unittest
     ```
 
